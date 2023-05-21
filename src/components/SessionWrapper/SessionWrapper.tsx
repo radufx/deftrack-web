@@ -8,10 +8,10 @@ const SessionWrapper = ({ children }: PropsWithChildren) => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session?.token.error === 'ExpiredAccessTokenError') {
+    if (session?.error === 'ExpiredAccessTokenError') {
       logout();
     }
-  }, [session?.token.error]);
+  }, [session?.error]);
 
   return <>{children}</>;
 };
