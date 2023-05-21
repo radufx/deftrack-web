@@ -1,0 +1,73 @@
+/***************
+    MOTION
+***************/
+// sources:
+// https://material.io/design/motion/speed.html#duration
+// https://material.io/design/motion/speed.html#easing
+
+$standard-easing: cubic-bezier(0.4, 0.0, 0.2, 1) !default;
+$standard-duration: 300ms !default;
+
+$entering-easing: cubic-bezier(0.0, 0.0, 0.2, 1) !default;
+$entering-duration: 250ms !default;
+
+$leaving-easing: cubic-bezier(0.4, 0.0, 1, 1) !default;
+$leaving-duration: 200ms !default;
+
+/***************
+    TRANSITIONS
+***************/
+// Transition
+// e.g. @include transition-entering(opacity background-color);
+@mixin transition($props: "", $transition...) {
+  @if $props !="" {
+    $values: null;
+
+    @each $prop in $props {
+      $value: $prop $transition;
+      $values: append($values, $value, comma);
+    }
+
+    -moz-transition: $values;
+    -o-transition: $values;
+    -webkit-transition: $values;
+    transition: $values;
+  }
+
+  @else {
+    -moz-transition: all $standard-duration $standard-easing;
+    -o-transition: all $standard-duration $standard-easing;
+    -webkit-transition: all $standard-duration $standard-easing;
+    transition: all $standard-duration $standard-easing;
+  }
+}
+
+@mixin transition-standard($props: "") {
+  @if $props !="" {
+    @include transition($props, $standard-duration $standard-easing);
+  }
+
+  @else {
+    @include transition();
+  }
+}
+
+@mixin transition-entering($props: "") {
+  @if $props !="" {
+    @include transition($props, $entering-duration $entering-easing);
+  }
+
+  @else {
+    @include transition(all, $entering-duration $entering-easing);
+  }
+}
+
+@mixin transition-leaving($props: "") {
+  @if $props !="" {
+    @include transition($props, $leaving-duration $leaving-easing);
+  }
+
+  @else {
+    @include transition(all, $leaving-duration $leaving-easing);
+  }
+}

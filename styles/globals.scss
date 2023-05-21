@@ -1,0 +1,81 @@
+@import '@radix-ui/colors/gray.css';
+@import '@radix-ui/colors/blue.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/red.css';
+
+
+@import 'components/toast/toast';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// https://css-tricks.com/snippets/css/remove-gray-highlight-when-tapping-links-in-mobile-safari/
+@mixin removeTapHighlight {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+// do not apply hover effect on touch devices
+@mixin hover() {
+  @media (hover: hover) {
+    &:hover {
+      @content
+    }
+  }
+}
+
+// remove browser highlights
+@mixin no_user_selection() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+html,
+body {
+  font-family: var(--font-roboto);
+}
+
+p {
+  @apply text-black;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  @include removeTapHighlight;
+  color: inherit;
+  text-decoration: none;
+}
+
+:root {
+  --rounded-1: 4px;
+  --rounded-2: 8px;
+  --rounded-3: 16px;
+
+  --brand: var(--blue5);
+  --body: var(--gray9);
+  --header: var(--blue5);
+  --emphasis: var(--blue5);
+  --foreground: var(--gray8);
+  --danger: var(--red5);
+
+  --sm: 640px;
+  --md: 768px;
+  --lg: 1024px;
+  --xl: 1280px;
+  --2xl: 1536px;
+
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 6px;
+  --space-4: 8px;
+  --space-5: 12px;
+  --space-6: 16px;
+}

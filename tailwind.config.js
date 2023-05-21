@@ -22,9 +22,8 @@ module.exports = {
         xl: '1.22rem',
       },
       fontFamily: {
-        sans: ['var(--font-roboto)', ...fontFamily.sans],
-        baloo: ['var(--font-baloo)', ...fontFamily.sans],
-        support: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        raleway: ['var(--font-raleway)', ...fontFamily.sans],
+        support: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Raleway', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
       boxShadow: {
         slider: '0 0 0 5px rgba(0, 0, 0, 0.3)',
