@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         primary: '#4890E3',
+        green: '#83CB3D'
       },
       aspectRatio: {
         banner: '3/1',

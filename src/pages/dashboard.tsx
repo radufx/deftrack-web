@@ -1,18 +1,23 @@
 import { GetStaticProps } from 'next';
+import { useSession } from 'next-auth/react';
 
 import { getLayout } from '@layouts/Layout';
-import { useSession } from 'next-auth/react';
+import Map from '@components/Map/Map';
 
 const Dashboard = () => {
   const { data: session } = useSession();
 
-  return <></>;
+  return (
+    <div className="flex min-h-full w-full">
+      <Map />
+    </div>
+  );
 };
 
 export const getStaticProps: GetStaticProps = () => {
   return {
     props: {
-      title: 'DefTrack - dashboard',
+      title: 'DefTrack - Dashboard',
     },
   };
 };

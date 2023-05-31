@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import Navbar from '@components/Navbar/Navbar';
+import Footer from '@components/Footer/Footer';
 
 type LayoutProps = {
   title?: string;
@@ -20,8 +21,9 @@ const Layout = ({ children, title }: PropsWithChildren<LayoutProps>) => {
       )}
       <div className="flex min-h-[100vh] flex-col justify-between">
         <div className="mx-auto flex h-full w-full grow flex-col">
-          <Navbar />
+          {pathname !== '/' && <Navbar />}
           <div className="flex h-full grow">{children}</div>
+          <Footer />
         </div>
       </div>
     </>
