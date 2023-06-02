@@ -19,7 +19,7 @@ export default NextAuth({
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/require-await
     async jwt({ token, account }) {
-      console.log('token', account);
+      // console.log('token', account);
       // Initial sign in
       if (account?.id_token) {
         const decoded: any = jwt_decode(account?.id_token);
@@ -49,7 +49,7 @@ export default NextAuth({
         session.error = token.error as string | undefined;
       }
 
-      console.log('success', session);
+      // console.log('success', session);
 
       return session;
     },
