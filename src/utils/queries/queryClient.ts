@@ -65,9 +65,10 @@ export const post = async ({ url, body }: PostRequest) => {
   return await axios.post(url, body, { headers, data: {} }).then((res) => res.data.data);
 };
 
-export const put = async ({ url, body }: PostRequest) => {
-  const headers = {
+export const put = async ({ url, body, headers }: PostRequest) => {
+  headers = {
     'Content-Type': 'application/json',
+    ...headers,
   };
   return await axios.put(url, body, { headers, data: {} }).then((res) => res.data.data);
 };

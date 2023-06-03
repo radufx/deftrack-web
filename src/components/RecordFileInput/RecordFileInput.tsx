@@ -1,0 +1,49 @@
+import { useState } from 'react';
+
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, Input } from '@mui/material';
+
+interface RecordFileInputProps {
+  onFileSelect: (file: File, timestamp: number) => void;
+}
+
+const RecordFileInput = ({ onFileSelect }: RecordFileInputProps) => {
+  const [uploadMode, setUploadMode] = useState<boolean>(false);
+  const [date, setDate] = useState<Date | null>(null);
+
+  const onFileChange = (event: any) => {
+    if (date) {
+      onFileSelect(event.target.files[0], date?.getTime());
+      setUploadMode(false);
+    }
+  };
+
+  const onDateChange = (event: any) => {
+    if (!event.target.value) setDate(null);
+    else {
+      setDate(new Date(event.target.value));
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2">
+      {!uploadMode ? (
+        <>
+          <FontAwesomeIcon icon={faCirclePlus} className="cursor-pointer" onClick={() => setUploadMode(true)} />
+          <span className="text-gray-600">Add a record</span>
+        </>
+      ) : (
+        <div className="flex w-full justify-between">
+          <Button variant="contained" component="label" disabled={date === null}>
+            SELECT IMAGERY
+            <Input type="file" hidden onChange={onFileChange} />
+          </Button>
+          <Input error={date === null} type="date" className="cursor-pointer" onChange={onDateChange} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RecordFileInput;

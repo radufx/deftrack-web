@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from 'next-auth/react';
+import { NextIntlProvider } from 'next-intl';
 
 config.autoAddCss = false;
 
@@ -30,18 +31,20 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session} refetchInterval={15 * 60}>
       <QueryClientProvider client={client}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <Provider>
-            <style jsx global>{`
-              html {
-                font-family: ${raleway.style.fontFamily};
-              }
-            `}</style>
-            <NextNProgress options={{ showSpinner: false }} color="#91bcee" startPosition={0.3} stopDelayMs={0} height={3} />
-            <ToastContainer closeButton={false} pauseOnFocusLoss={false} />
-            <main className={`${raleway.variable} font-sans`}>{getLayout(<Component {...pageProps} />)}</main>
-          </Provider>
-        </Hydrate>
+        <NextIntlProvider locale="en-RO">
+          <Hydrate state={pageProps.dehydratedState}>
+            <Provider>
+              <style jsx global>{`
+                html {
+                  font-family: ${raleway.style.fontFamily};
+                }
+              `}</style>
+              <NextNProgress options={{ showSpinner: false }} color="#91bcee" startPosition={0.3} stopDelayMs={0} height={3} />
+              <ToastContainer closeButton={false} pauseOnFocusLoss={false} />
+              <main className={`${raleway.variable} font-sans`}>{getLayout(<Component {...pageProps} />)}</main>
+            </Provider>
+          </Hydrate>
+        </NextIntlProvider>
       </QueryClientProvider>
     </SessionProvider>
   );
