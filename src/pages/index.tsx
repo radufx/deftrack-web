@@ -1,12 +1,19 @@
-import { signIn, useSession } from 'next-auth/react';
-import { GetStaticProps } from 'next';
+import { GetSessionParams, getSession, signIn, useSession } from 'next-auth/react';
+import { GetServerSidePropsContext } from 'next';
+import { useRouter } from 'next/router';
+import { logout } from '@helpers/session';
 
 import Button from '@components/Button/Button';
 import { getLayout } from '@layouts/Layout';
-import { logout } from '@helpers/session';
 
 const Home = () => {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session } = useSession({
+    required: false,
+    onUnauthenticated: () => {
+      router.push('/dashboard');
+    },
+  });
 
   return (
     <div className="m-auto flex max-w-[500px] flex-col items-center gap-2">
@@ -33,7 +40,19 @@ const Home = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = () => {
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const session = await getSession(context as GetSessionParams);
+
+  if (session?.user.sub) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/dashboard',
+        revalidate: 60 * 60,
+      },
+    };
+  }
+
   return {
     props: {
       title: 'DefTrack',

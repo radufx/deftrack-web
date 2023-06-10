@@ -22,7 +22,9 @@ const RecordFileInput = ({ onFileSelect }: RecordFileInputProps) => {
   const onDateChange = (event: any) => {
     if (!event.target.value) setDate(null);
     else {
-      setDate(new Date(event.target.value));
+      const date = new Date(event.target.value);
+      if (date.getTime() > Date.now() + 86400000) setDate(null);
+      else setDate(date);
     }
   };
 

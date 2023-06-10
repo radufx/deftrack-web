@@ -31,12 +31,12 @@ export const request = async ({ url, params, isServer }: Request) => {
   if (isServer) {
     try {
       const res = await client
-        .get(`${process.env.API_SERVER_URL}${url}`, {
+        .get(`${process.env.API_SERVER_URL}${url.replace('/service', '')}`, {
           headers,
           params,
         })
         .then((res) => {
-          return res.data;
+          return res.data.data;
         });
       return res;
     } catch (error) {

@@ -35,10 +35,11 @@ const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
   const { isLoading: isLoadingRecords, isUploading, records, uploadRecords } = useRecords(zone as InterestZone);
   const [selectedFiles, setSelectedFiles] = useState<RecordInfo[]>([]);
 
-  const submitForm = (data: typeof interestZoneSchema._type) => {
+  const submitForm = async (data: typeof interestZoneSchema._type) => {
     if (zone.id) {
       updateZoneDetails({ ...data, id: zone.id });
-      uploadRecords(selectedFiles);
+      await uploadRecords(selectedFiles);
+      setSelectedFiles([]);
     } else {
       addInterestZone({ ...data, userId: zone.userId!, lat: zone.lat!, lng: zone.lng!, id: zone.id ?? '' });
     }
@@ -65,13 +66,13 @@ const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
         <MenuItem value="high">High</MenuItem>
       </Select>
       {zone.id && (
-        <div className="flex w-full flex-col gap-1">
+        <div className="flex w-full flex-col gap-[6px]">
           {isLoadingRecords ? (
             <Loader color="#8cd9b3" size={50} className="mx-auto" />
           ) : (
             <>
               {records?.map((record) => (
-                <RecordInformation record={record} />
+                <RecordInformation record={record} key={record.id} />
               ))}
               {selectedFiles.map((recordInfo: RecordInfo, index: number) => (
                 <RecordFileInfo name={recordInfo.file.name} timestamp={recordInfo.timestamp} key={index} />

@@ -7,6 +7,7 @@ import InterestZoneModal from '@components/InterestZoneModal/InterestZoneModal';
 
 import { useLoadScript, GoogleMap } from '@react-google-maps/api';
 import { useSession } from 'next-auth/react';
+import { twMerge } from 'tailwind-merge';
 
 type MapT = google.maps.Map;
 
@@ -15,7 +16,13 @@ const center = {
   lng: 23.590049077867448,
 };
 
-const Map = () => {
+interface MapProps {
+  readOnly?: boolean;
+  centerTo?: { lat: number; lng: number };
+  className?: string;
+}
+
+const Map = ({ readOnly = false, centerTo, className = '' }: MapProps) => {
   const [map, setMap] = useState<MapT | null>(null);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY!,
@@ -30,20 +37,21 @@ const Map = () => {
   };
 
   const onLoad = useCallback(function callback(map: MapT) {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds(centerTo ?? center);
     map.fitBounds(bounds);
     map.setZoom(2);
     // map.setMapTypeId('satellite');
     map.setOptions({ disableDoubleClickZoom: true, zoom: 20 });
 
-    map.addListener('dblclick', (event: any) => {
-      const marker = new google.maps.Marker({
-        position: event.latLng,
-        map,
+    !readOnly &&
+      map.addListener('dblclick', (event: any) => {
+        const marker = new google.maps.Marker({
+          position: event.latLng,
+          map,
+        });
+        setAddZoneMarker(marker);
+        map.panTo(marker.getPosition() as google.maps.LatLng);
       });
-      setAddZoneMarker(marker);
-      map.panTo(marker.getPosition() as google.maps.LatLng);
-    });
 
     setMap(map);
   }, []);
@@ -57,7 +65,13 @@ const Map = () => {
       {!isLoaded ? (
         <Loader color="#83CB3D" size={86} />
       ) : (
-        <GoogleMap onLoad={onLoad} onUnmount={onUnmount} mapContainerClassName="w-full h-full" zoom={2} center={center}>
+        <GoogleMap
+          onLoad={onLoad}
+          onUnmount={onUnmount}
+          mapContainerClassName={twMerge('w-full h-full', className)}
+          zoom={2}
+          center={centerTo ?? center}
+        >
           {interestZones?.map((zone: InterestZone) => (
             <ZoneMarker zone={zone} key={zone.id} />
           ))}

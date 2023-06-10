@@ -10,7 +10,7 @@ const RecordInformation = ({ record }: { record: Record }) => {
   return (
     <div className="flex w-full items-center justify-between font-medium">
       <span className="items-center">
-        Vegetation: <span className="font-semibold">{Math.floor(record.vegetationRate * 100)}%</span>
+        Vegetation: ~<span className="font-semibold">{Math.floor(record.vegetationRate * 100)}%</span>
       </span>
       <span>From {format.relativeTime(recordDate, now)}</span>
     </div>

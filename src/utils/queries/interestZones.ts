@@ -5,6 +5,10 @@ type GetUserInterestZones = {
   userId: string;
   isServer?: NextApiRequestCookies;
 };
+type GetInterestZone = {
+  zoneId: string;
+  isServer?: NextApiRequestCookies;
+};
 
 type UpdateZoneDetailsType = {
   id: string;
@@ -15,9 +19,23 @@ type UpdateZoneDetailsType = {
 
 export const getUserInterestZones = async ({ isServer = undefined, userId }: GetUserInterestZones) => {
   return (await request({
-    url: `/api/service/interest-zones/${userId}`,
+    url: `/api/service/interest-zones?userId=${userId}`,
     isServer,
   })) as InterestZone[];
+};
+
+export const getInterestZoneIds = async (isServer?: NextApiRequestCookies) => {
+  return (await request({
+    url: `/api/service/interest-zones/ids`,
+    isServer,
+  })) as string[];
+};
+
+export const getInterestZone = async ({ isServer = undefined, zoneId }: GetInterestZone) => {
+  return (await request({
+    url: `/api/service/interest-zones/${zoneId}`,
+    isServer,
+  })) as InterestZone;
 };
 
 export const addInterestZone = async (interestZone: InterestZone) => {
