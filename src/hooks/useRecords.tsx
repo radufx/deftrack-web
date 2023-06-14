@@ -31,7 +31,7 @@ const useRecords = (zone?: InterestZone) => {
 
     const { url } = await getRecordImageSignedUrl(body);
 
-    const response = await axios.put(url, record.file, {
+    await axios.put(url, record.file, {
       headers: { 'Content-type': record.file.type, 'Access-Control-Allow-Origin': '*' },
     });
     const imageUrl = `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}${body.userId}/${body.recordId}`;
@@ -49,6 +49,7 @@ const useRecords = (zone?: InterestZone) => {
   };
 
   const uploadRecordsFn = async (records: RecordInfo[]) => {
+    if (records.length == 0) return;
     setIsUploading(true);
 
     try {

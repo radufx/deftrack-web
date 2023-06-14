@@ -40,7 +40,6 @@ const Map = ({ readOnly = false, centerTo, className = '' }: MapProps) => {
     const bounds = new window.google.maps.LatLngBounds(centerTo ?? center);
     map.fitBounds(bounds);
     map.setZoom(2);
-    // map.setMapTypeId('satellite');
     map.setOptions({ disableDoubleClickZoom: true, zoom: 20 });
 
     !readOnly &&

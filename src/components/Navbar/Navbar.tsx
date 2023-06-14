@@ -5,7 +5,7 @@ import UserMenu from '@components/UserMenu/UserMenu';
 
 const Navbar = () => {
   return (
-    <nav className="sticky top-0 z-[50] flex  w-full flex-col items-center ">
+    <nav className="sticky top-0 z-[50] flex w-full flex-col items-center ">
       <div className="flex min-h-[60px] w-full flex-1 items-center justify-between bg-[#83CB3D] px-6 py-2">
         <div className="flex items-center">
           <SideNavigation />

@@ -31,7 +31,7 @@ const Home = () => {
           <Button onClick={() => signIn('cognito', { callbackUrl: '/dashboard' })} className="w-[300px]">
             Sign in
           </Button>
-          <Button className="w-[300px]" intent="quaternary">
+          <Button className="w-[300px]" intent="quaternary" onClick={() => signIn('cognito', { callbackUrl: '/dashboard' })}>
             Sign up
           </Button>
         </>

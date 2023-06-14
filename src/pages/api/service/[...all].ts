@@ -10,7 +10,6 @@ export const config = {
 
 export default async (req: NextApiRequest, res: NextApiResponse) =>
   httpProxyMiddleware(req, res, {
-    // You can use the `http-proxy` option
     target: process.env.API_SERVER_URL,
     changeOrigin: true,
     pathRewrite: [

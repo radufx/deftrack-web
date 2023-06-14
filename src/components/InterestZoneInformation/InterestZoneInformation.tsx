@@ -65,11 +65,11 @@ const InterestZoneInformation = ({ zone }: InterestZoneInformationProps) => {
                   <RecordInfo record={record} key={record.id} index={index} />
                 ))}
               </div>
-              <Button onClick={handleOpen} className="mt-10">
-                EDIT DETAILS
-              </Button>
             </div>
           )}
+          <Button onClick={handleOpen} className="mt-10">
+            EDIT DETAILS
+          </Button>
         </div>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar orientation="vertical" className="invisible">

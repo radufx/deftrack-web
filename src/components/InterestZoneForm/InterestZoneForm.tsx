@@ -37,9 +37,16 @@ const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
 
   const submitForm = async (data: typeof interestZoneSchema._type) => {
     if (zone.id) {
-      updateZoneDetails({ ...data, id: zone.id });
-      await uploadRecords(selectedFiles);
-      setSelectedFiles([]);
+      updateZoneDetails(
+        { ...data, id: zone.id },
+        {
+          onSuccess: async () => {
+            await uploadRecords(selectedFiles);
+            setSelectedFiles([]);
+          },
+          onSettled: () => setSelectedFiles([]),
+        }
+      );
     } else {
       addInterestZone({ ...data, userId: zone.userId!, lat: zone.lat!, lng: zone.lng!, id: zone.id ?? '' });
     }
