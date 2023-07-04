@@ -101,7 +101,7 @@ const InterestZoneForm = ({ zone, onUpdate }: InterestZoneFormProps) => {
           )}
         </div>
       )}
-      <Button type="submit" className="mt-2 gap-2" disabled={isLoading || !isValid}>
+      <Button type="submit" className="mt-2 gap-2" disabled={isLoading || !isValid || isUploading}>
         {zone.id ? 'Update zone ' : 'Create zone'}
         {(isLoading || isUploading) && <Loader color="#8cd9b3" size={30} />}
       </Button>
