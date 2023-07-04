@@ -36,24 +36,27 @@ const Map = ({ readOnly = false, centerTo, className = '' }: MapProps) => {
     setAddZoneMarker(null);
   };
 
-  const onLoad = useCallback(function callback(map: MapT) {
-    const bounds = new window.google.maps.LatLngBounds(centerTo ?? center);
-    map.fitBounds(bounds);
-    map.setZoom(2);
-    map.setOptions({ disableDoubleClickZoom: true, zoom: 20 });
+  const onLoad = useCallback(
+    function callback(map: MapT) {
+      const bounds = new window.google.maps.LatLngBounds(centerTo ?? center);
+      map.fitBounds(bounds);
+      map.setZoom(2);
+      map.setOptions({ disableDoubleClickZoom: true, zoom: 20 });
 
-    !readOnly &&
-      map.addListener('dblclick', (event: any) => {
-        const marker = new google.maps.Marker({
-          position: event.latLng,
-          map,
+      !readOnly &&
+        map.addListener('dblclick', (event: any) => {
+          const marker = new google.maps.Marker({
+            position: event.latLng,
+            map,
+          });
+          setAddZoneMarker(marker);
+          map.panTo(marker.getPosition() as google.maps.LatLng);
         });
-        setAddZoneMarker(marker);
-        map.panTo(marker.getPosition() as google.maps.LatLng);
-      });
 
-    setMap(map);
-  }, []);
+      setMap(map);
+    },
+    [centerTo, readOnly]
+  );
 
   const onUnmount = useCallback(function callback(map: MapT) {
     setMap(null);

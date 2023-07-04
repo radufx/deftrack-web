@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Marker } from '@react-google-maps/api';
+import { MarkerF } from '@react-google-maps/api';
 import InterestZoneModal from '../InterestZoneModal/InterestZoneModal';
 
 interface ZoneMarkerProps {
@@ -14,7 +14,7 @@ const ZoneMarker = ({ zone }: ZoneMarkerProps) => {
 
   return (
     <>
-      <Marker onClick={handleOpen} position={{ lat: zone.lat, lng: zone.lng }} />
+      <MarkerF onClick={handleOpen} position={{ lat: zone.lat, lng: zone.lng }} />
       <InterestZoneModal open={openModal} handleClose={handleClose} zone={zone} />
     </>
   );

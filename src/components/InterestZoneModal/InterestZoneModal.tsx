@@ -20,7 +20,7 @@ const InterestZoneModal = ({ open, handleClose, zone }: InterestZoneModalProps) 
         <FontAwesomeIcon icon={faClose} onClick={handleClose} className="absolute right-4 top-3 cursor-pointer text-xl" />
         <span className="text-center text-lg font-semibold">{zone.id ? 'Edit zone details' : 'Fill in zone details'}</span>
         <FormProvider {...methods}>
-          <InterestZoneForm zone={zone} />
+          <InterestZoneForm zone={zone} onUpdate={handleClose} />
         </FormProvider>
       </div>
     </Modal>

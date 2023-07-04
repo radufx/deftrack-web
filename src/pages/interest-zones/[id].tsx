@@ -47,7 +47,7 @@ export async function getStaticPaths() {
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
   const client = new QueryClient();
 
-  await client.prefetchQuery(['interest-zone', params?.id], {
+  await client.prefetchQuery(['interest-zone'], {
     queryFn: () => getInterestZone({ isServer: {}, zoneId: params?.id as string }),
   });
 

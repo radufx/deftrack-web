@@ -31,8 +31,8 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
     };
   }
 
-  await client.prefetchQuery(['interest-zones', session?.user.sub], {
-    queryFn: () => getUserInterestZones({ isServer: {}, userId: session?.user.sub }),
+  await client.prefetchQuery(['interest-zones'], {
+    queryFn: () => getUserInterestZones({ isServer: {}, userId: session.user.sub }),
   });
 
   return {

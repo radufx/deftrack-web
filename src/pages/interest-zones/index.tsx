@@ -30,7 +30,7 @@ const InterestZones = () => {
     <div className="flex w-full flex-col items-center p-5">
       <div className="m-2 mb-4 flex flex-col">
         <span className="text-[30px] font-semibold lg:text-[44px] ">
-          Track the state of your {interestZones?.length} current interest zones.
+          Track the state of your {interestZones.length > 1 ? 'current interest zones.' : 'interest zone.'}
         </span>
       </div>
       <div className="mx-auto flex flex-wrap justify-start gap-5 align-middle">

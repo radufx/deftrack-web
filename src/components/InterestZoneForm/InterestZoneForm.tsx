@@ -16,6 +16,7 @@ import Link from 'next/link';
 
 interface InterestZoneFormProps {
   zone: Partial<InterestZone>;
+  onUpdate: () => void;
 }
 
 export interface RecordInfo {
@@ -23,11 +24,15 @@ export interface RecordInfo {
   timestamp: number;
 }
 
-const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
+const InterestZoneForm = ({ zone, onUpdate }: InterestZoneFormProps) => {
   const form = useZodForm({
     schema: interestZoneSchema,
     mode: 'onChange',
-    defaultValues: zone,
+    defaultValues: {
+      name: zone.name || '',
+      description: zone.description || '',
+      priority: zone.priority || 'unset',
+    },
   });
 
   const { isValid } = form.formState;
@@ -43,12 +48,16 @@ const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
           onSuccess: async () => {
             await uploadRecords(selectedFiles);
             setSelectedFiles([]);
+            onUpdate();
           },
           onSettled: () => setSelectedFiles([]),
         }
       );
     } else {
-      addInterestZone({ ...data, userId: zone.userId!, lat: zone.lat!, lng: zone.lng!, id: zone.id ?? '' });
+      addInterestZone(
+        { ...data, userId: zone.userId!, lat: zone.lat!, lng: zone.lng!, id: zone.id ?? '' },
+        { onSuccess: onUpdate }
+      );
     }
   };
 
@@ -66,12 +75,15 @@ const InterestZoneForm = ({ zone }: InterestZoneFormProps) => {
     <Form form={form} onSubmit={(data) => submitForm(data)} className="flex flex-col gap-4">
       <TextField label="Name" error={!!form.formState.errors.name} type="text" {...form.register('name')} variant="standard" />
       <TextField label="Description" type="text" {...form.register('description')} variant="standard" />
-      <Select label="Priority" {...form.register('priority')} defaultValue={zone.priority ?? 'unset'}>
-        <MenuItem value="unset">None</MenuItem>
-        <MenuItem value="low">Low</MenuItem>
-        <MenuItem value="medium">Medium</MenuItem>
-        <MenuItem value="high">High</MenuItem>
-      </Select>
+      <div className="flex w-full items-center gap-5">
+        <span>Priority</span>
+        <Select {...form.register('priority')} defaultValue={zone.priority || 'unset'} className="w-full">
+          <MenuItem value="unset">None</MenuItem>
+          <MenuItem value="low">Low</MenuItem>
+          <MenuItem value="medium">Medium</MenuItem>
+          <MenuItem value="high">High</MenuItem>
+        </Select>
+      </div>
       {zone.id && (
         <div className="flex w-full flex-col gap-[6px]">
           {isLoadingRecords ? (

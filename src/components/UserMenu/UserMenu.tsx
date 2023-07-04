@@ -19,11 +19,6 @@ const UserMenu = () => {
     setAnchorEl(null);
   };
 
-  const handleProfileClick = () => {
-    router.push('/profile');
-    handleClose();
-  };
-
   const handleSignOut = () => {
     logout();
     handleClose();
@@ -33,9 +28,6 @@ const UserMenu = () => {
     <div className="hidden md:flex">
       <UserInformation onClick={handleClick} className="cursor-pointer" />
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem className="w-[200px] justify-center" onClick={handleProfileClick}>
-          Profile
-        </MenuItem>
         <MenuItem className="w-[200px] justify-center" onClick={handleSignOut}>
           Sign out
         </MenuItem>

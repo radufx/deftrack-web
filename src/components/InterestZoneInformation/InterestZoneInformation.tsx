@@ -53,10 +53,12 @@ const InterestZoneInformation = ({ zone }: InterestZoneInformationProps) => {
               </div>
             )}
           </div>
-          <div className="flex flex-col gap-1 px-2">
-            <span className="text-gray-500">Description</span>
-            <span>{zone.description}</span>
-          </div>
+          {zone.description && (
+            <div className="flex flex-col gap-1 px-2">
+              <span className="text-gray-500">Description</span>
+              <span>{zone.description}</span>
+            </div>
+          )}
           {(records?.length ?? 0) > 0 && (
             <div className="flex flex-col px-2">
               <span className="mb-2 text-gray-500">History</span>

@@ -36,10 +36,10 @@ const RecordFileInput = ({ onFileSelect }: RecordFileInputProps) => {
           <span className="text-gray-600">Add a record</span>
         </>
       ) : (
-        <div className="flex w-full justify-between">
-          <Button variant="contained" component="label" disabled={date === null}>
+        <div className="flex w-full justify-between gap-8">
+          <Button variant="contained" className="text-md w-full" component="label" disabled={date === null}>
             SELECT IMAGERY
-            <Input type="file" hidden onChange={onFileChange} />
+            <input type="file" onChange={onFileChange} className="hidden" id="file" name="file" />
           </Button>
           <Input error={date === null} type="date" className="cursor-pointer" onChange={onDateChange} />
         </div>

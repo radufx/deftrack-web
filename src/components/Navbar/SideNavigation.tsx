@@ -18,18 +18,15 @@ const SideNavigation = () => {
         <div className="flex h-full w-[320px] flex-col gap-4 bg-green p-4">
           <UserInformation />
           <div className="flex flex-col px-2 text-lg font-medium text-white">
-            <Link href="/profile" className="ml-0 mr-auto">
-              Profile
-            </Link>
             <Link href="/" onClick={logout} className="ml-0 mr-auto">
               Sign out
             </Link>
           </div>
           <div className="flex flex-col px-2 text-lg font-medium">
-            <Link href="/dashboard" className="ml-0 mr-auto">
+            <Link href="/dashboard" onClick={() => setOpen(false)} className="ml-0 mr-auto">
               Dashboard
             </Link>
-            <Link href="/interest-zones" className="ml-0 mr-auto">
+            <Link href="/interest-zones" onClick={() => setOpen(false)} className="ml-0 mr-auto">
               Interest zones
             </Link>
           </div>

@@ -17,7 +17,6 @@ export default NextAuth({
     maxAge: 24 * 60 * 60, // 1 day in seconds
   },
   callbacks: {
-    // eslint-disable-next-line @typescript-eslint/require-await
     async jwt({ token, account }) {
       // console.log('token', account);
       // Initial sign in
@@ -54,4 +53,5 @@ export default NextAuth({
       return session;
     },
   },
+  secret: process.env.SECRET,
 });
